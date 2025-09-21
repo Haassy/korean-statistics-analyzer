@@ -1,0 +1,91 @@
+{
+  "title": "Korean Government Statistics Analyzer Input",
+  "description": "Configure the search criteria to find and extract specific statistical data from Korea's KOSIS portal. Start with a keyword or leave fields blank to explore.",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "searchKeyword": {
+      "title": "Search Keyword(s)",
+      "type": "string",
+      "description": "Enter keywords in Korean or English to find relevant statistical tables. For example: \"인구\" (population), \"경제\" (economy), \"고용\" (employment).",
+      "editor": "textfield",
+      "example": "인구"
+    },
+    "vwCd": {
+      "title": "Service View Code",
+      "type": "string",
+      "description": "KOSIS service view code to specify the type of statistics. MT_ZTITLE for domestic statistics by topic is most common.",
+      "default": "MT_ZTITLE",
+      "enum": [
+        "MT_ZTITLE",
+        "MT_OTITLE",
+        "MT_GTITLE01",
+        "MT_GTITLE02",
+        "MT_CHOSUN_TITLE",
+        "MT_HANKUK_TITLE",
+        "MT_RTITLE",
+        "MT_BUKHAN",
+        "MT_ETITLE"
+      ],
+      "enumNames": [
+        "Domestic Statistics (by Topic)",
+        "Domestic Statistics (by Agency)",
+        "Local Indicators (by Topic)",
+        "Local Indicators (by Region)",
+        "Historical Statistics (1908-1943)",
+        "Korea Statistical Yearbook",
+        "International Statistics",
+        "North Korea Statistics",
+        "English KOSIS"
+      ],
+      "editor": "select"
+    },
+    "parentId": {
+      "title": "Parent Category ID",
+      "type": "string",
+      "description": "Parent category ID for hierarchical browsing. 'A' is the root level for most categories.",
+      "default": "A",
+      "editor": "textfield",
+      "example": "A"
+    },
+    "maxItems": {
+      "title": "Maximum Tables to Process",
+      "type": "integer",
+      "description": "The maximum number of statistical tables to find and process. A higher number will result in a longer run time.",
+      "default": 10,
+      "minimum": 1,
+      "maximum": 100
+    },
+    "outputFormat": {
+      "title": "Output Data Format",
+      "type": "string",
+      "description": "Choose the format for the output data. 'Structured' is recommended for most use cases.",
+      "default": "structured",
+      "enum": [
+        "structured",
+        "raw",
+        "both"
+      ],
+      "enumNames": [
+        "Structured JSON (Recommended)",
+        "Raw API Response",
+        "Both Structured and Raw"
+      ],
+      "editor": "select"
+    },
+    "includeMetadata": {
+      "title": "Include Detailed Metadata",
+      "type": "boolean",
+      "description": "If checked, each data record will include a comprehensive metadata object with details about the data's source and structure.",
+      "default": true
+    },
+    "delayBetweenRequests": {
+      "title": "Delay Between Requests (ms)",
+      "type": "integer",
+      "description": "The delay in milliseconds between consecutive API requests to avoid rate limiting. Recommended to keep at 1000ms or higher.",
+      "default": 1000,
+      "minimum": 500
+    }
+  },
+  "required": []
+}

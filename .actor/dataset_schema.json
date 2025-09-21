@@ -1,0 +1,99 @@
+{
+  "title": "Korean Government Statistics Data",
+  "description": "A structured dataset containing statistical data points extracted from the KOSIS portal. Each item represents a single statistical measure with its associated categories and values.",
+  "type": "object",
+  "schemaVersion": 1,
+  "actorOutputSchemaVersion": 1,
+  "properties": {
+    "statName": {
+      "title": "Statistic Name",
+      "type": "string",
+      "description": "The official name of the statistic (e.g., \"인구총조사 총인구\").",
+      "template": "인구총조사 총인구"
+    },
+    "surveyDate": {
+      "title": "Survey Date",
+      "type": "string",
+      "description": "The date or period of the survey (e.g., \"2020년\").",
+      "template": "2020년"
+    },
+    "region": {
+      "title": "Region",
+      "type": "string",
+      "description": "The geographical area the data pertains to (e.g., \"전국\" for 'All Korea').",
+      "template": "전국"
+    },
+    "category1": {
+      "title": "Primary Category",
+      "type": "string",
+      "description": "The primary data category, providing the main classification for the value.",
+      "template": "총인구"
+    },
+    "category2": {
+      "title": "Secondary Category",
+      "type": "string",
+      "description": "A secondary data category for more detailed classification.",
+      "template": "계"
+    },
+    "value": {
+      "title": "Value",
+      "type": "string",
+      "description": "The numerical statistical value.",
+      "template": "51829023"
+    },
+    "unit": {
+      "title": "Unit",
+      "type": "string",
+      "description": "The unit of measurement for the value (e.g., \"명\" for 'people', \"원\" for 'won').",
+      "template": "명"
+    },
+    "sourceTableId": {
+      "title": "Source Table ID",
+      "type": "string",
+      "description": "The unique identifier for the source table in the KOSIS database, useful for cross-referencing.",
+      "template": "DT_1IN1502"
+    },
+    "dataType": {
+      "title": "Data Type",
+      "type": "string",
+      "description": "An inferred data type (e.g., 'population', 'economic') to help with filtering and analysis.",
+      "template": "population"
+    },
+    "lastUpdated": {
+      "title": "Last Updated",
+      "type": "string",
+      "description": "The date the source data was last updated by the provider, in ISO 8601 format.",
+      "template": "2021-08-31T00:00:00Z"
+    },
+    "metadata": {
+      "title": "Metadata",
+      "type": "string",
+      "description": "A comprehensive JSON string containing detailed metadata about the data's source and structure (if requested).",
+      "template": "{}"
+    },
+    "extractedAt": {
+      "title": "Extracted At",
+      "type": "string",
+      "description": "The timestamp when the data was extracted by the Actor, in ISO 8601 format.",
+      "template": "2024-09-21T12:00:00Z"
+    }
+  },
+  "views": {
+    "overview": {
+      "title": "Overview",
+      "transformation": {
+        "fields": ["statName", "surveyDate", "region", "value", "unit"]
+      },
+      "display": {
+        "component": "table",
+        "properties": {
+          "statName": { "label": "Statistic" },
+          "surveyDate": { "label": "Date" },
+          "region": { "label": "Region" },
+          "value": { "label": "Value", "format": "number" },
+          "unit": { "label": "Unit" }
+        }
+      }
+    }
+  }
+}

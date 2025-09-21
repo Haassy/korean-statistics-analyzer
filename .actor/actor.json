@@ -1,0 +1,23 @@
+{
+  "actorSpecification": 1,
+  "name": "korean-statistics-analyzer",
+  "title": "Korean Government Statistics Analyzer",
+  "description": "Extract and analyze comprehensive statistical data from Korea's KOSIS portal. Access official Korean government statistics including population, economic indicators, labor market data, and more.",
+  "version": "1.0",
+  "meta": {
+    "templateId": "getting_started_node"
+  },
+  "input": "./input_schema.json",
+  "output": "./dataset_schema.json",
+  "dockerfile": "../Dockerfile",
+  "readme": "../README.md",
+  "categories": [
+    "BUSINESS",
+    "DATA_EXTRACTION",
+    "MARKET_RESEARCH",
+    "PUBLIC_DATA"
+  ],
+  "environmentVariables": {
+    "KOSIS_API_KEY": "@myKosisApiKey"
+  }
+}
