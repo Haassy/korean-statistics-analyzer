@@ -27,17 +27,7 @@
         "MT_BUKHAN",
         "MT_ETITLE"
       ],
-      "enumNames": [
-        "Domestic Statistics (by Topic)",
-        "Domestic Statistics (by Agency)",
-        "Local Indicators (by Topic)",
-        "Local Indicators (by Region)",
-        "Historical Statistics (1908-1943)",
-        "Korea Statistical Yearbook",
-        "International Statistics",
-        "North Korea Statistics",
-        "English KOSIS"
-      ],
+
       "editor": "select"
     },
     "parentId": {
@@ -66,11 +56,7 @@
         "raw",
         "both"
       ],
-      "enumNames": [
-        "Structured JSON (Recommended)",
-        "Raw API Response",
-        "Both Structured and Raw"
-      ],
+
       "editor": "select"
     },
     "includeMetadata": {
