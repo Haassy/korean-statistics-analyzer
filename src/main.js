@@ -1,3 +1,4 @@
+
 import { Actor } from 'apify';
 import { 
     createKosisApiClient, 
@@ -11,6 +12,38 @@ import {
     logEvent,
     KOSIS_VIEW_CODES
 } from './utils.js';
+
+// Function to render a chart
+async function renderChart(data) {
+    const { Chart } = await import('chart.js');
+
+    const canvas = await Actor.openCanvas();
+    const ctx = canvas.getContext('2d');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: data.map(item => item.STAT_NAME),
+            datasets: [{
+                label: 'Value',
+                data: data.map(item => item.DT),
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    const chartImage = await canvas.toBuffer('image/png');
+    await Actor.setValue('chart.png', chartImage, { contentType: 'image/png' });
+}
 
 export async function mainLogic() {
     logEvent('actor.started');
@@ -67,6 +100,7 @@ export async function mainLogic() {
 
         let totalDataPoints = 0;
         let processedTables = 0;
+        let allNormalizedData = [];
 
         for (const table of tablesToProcess) {
             try {
@@ -121,6 +155,7 @@ export async function mainLogic() {
 
                 if (validatedInput.outputFormat === 'structured' || validatedInput.outputFormat === 'both') {
                     const normalizedData = normalizeStatisticalData(statsData, metadata, tableId);
+                    allNormalizedData.push(...normalizedData);
                     for (const dataPoint of normalizedData) {
                         await Actor.pushData(dataPoint);
                         totalDataPoints++;
@@ -150,6 +185,11 @@ export async function mainLogic() {
                     extractedAt: new Date().toISOString()
                 });
             }
+        }
+
+        // Render chart if data is available
+        if (allNormalizedData.length > 0) {
+            await renderChart(allNormalizedData);
         }
 
         // Final summary
@@ -319,3 +359,4 @@ async function runDemoMode(input) {
 if (process.env.NODE_ENV !== 'test') {
     Actor.main(mainLogic);
 }
+
